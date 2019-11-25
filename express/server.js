@@ -26,12 +26,12 @@ console.log(path.resolve(__dirname, '../public'));
 app.use(express.static('./public'))
 
 
-router.get('/*', function(request, response, next) {
+router.get('/*', function(request, response) {
   //response.sendFile('index.html', {root: './public'});
   response.sendFile(path.resolve(__dirname, '../public')+'/index.html');
 });
 
-app.use('/.netlify/functions/server', router);  // path must route to lambda
+app.use('*', router);  // path must route to lambda
 
 module.exports = app;
 module.exports.handler = serverless(app);
